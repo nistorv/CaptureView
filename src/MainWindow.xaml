@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="CaptureView.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="CaptureView">
+
+    <Grid x:Name="Root" Background="Black" DoubleTapped="Root_DoubleTapped">
+        <Grid.KeyboardAccelerators>
+            <KeyboardAccelerator Key="F11" Invoked="FullscreenAccelerator_Invoked" />
+            <KeyboardAccelerator Key="Escape" Invoked="EscapeAccelerator_Invoked" />
+        </Grid.KeyboardAccelerators>
+
+        <MediaPlayerElement
+            x:Name="VideoView"
+            AreTransportControlsEnabled="False"
+            Stretch="Uniform" />
+
+        <TextBlock
+            x:Name="StatusText"
+            Margin="24"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="White"
+            TextAlignment="Center"
+            TextWrapping="Wrap"
+            Visibility="Collapsed" />
+
+        <Button
+            x:Name="SettingsButton"
+            Margin="12"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Opacity="0.6"
+            ToolTipService.ToolTip="Settings">
+            <FontIcon Glyph="&#xE713;" />
+            <Button.Flyout>
+                <Flyout Placement="BottomEdgeAlignedRight" Closed="SettingsFlyout_Closed">
+                    <StackPanel Width="320" Spacing="12">
+                        <ComboBox
+                            x:Name="VideoDeviceBox"
+                            HorizontalAlignment="Stretch"
+                            Header="Video device"
+                            SelectionChanged="VideoDeviceBox_SelectionChanged" />
+                        <ComboBox
+                            x:Name="FormatBox"
+                            HorizontalAlignment="Stretch"
+                            Header="Format"
+                            SelectionChanged="FormatBox_SelectionChanged" />
+                        <ComboBox
+                            x:Name="AudioInputBox"
+                            HorizontalAlignment="Stretch"
+                            Header="Audio input"
+                            SelectionChanged="AudioDeviceBox_SelectionChanged" />
+                        <ComboBox
+                            x:Name="AudioOutputBox"
+                            HorizontalAlignment="Stretch"
+                            Header="Audio output"
+                            SelectionChanged="AudioDeviceBox_SelectionChanged" />
+                        <Slider
+                            x:Name="VolumeSlider"
+                            Header="Volume"
+                            Maximum="100"
+                            Minimum="0"
+                            ValueChanged="VolumeSlider_ValueChanged" />
+                        <ToggleSwitch x:Name="MuteSwitch" Header="Mute" Toggled="MuteSwitch_Toggled" />
+                        <ToggleSwitch x:Name="AspectSwitch" Header="Keep aspect ratio" Toggled="AspectSwitch_Toggled" />
+                        <ToggleSwitch x:Name="TopmostSwitch" Header="Always on top" Toggled="TopmostSwitch_Toggled" />
+                        <Button Content="Fullscreen (F11)" Click="FullscreenButton_Click" />
+                    </StackPanel>
+                </Flyout>
+            </Button.Flyout>
+        </Button>
+    </Grid>
+</Window>
