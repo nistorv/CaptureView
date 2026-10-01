@@ -230,23 +230,6 @@ public sealed partial class MainWindow : Window
         args.Handled = true;
     }
 
-    private void Root_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
-    {
-        if (IsInside(e.OriginalSource, SettingsButton))
-            return;
-        SetFullscreen(!IsFullscreen);
-    }
-
-    private static bool IsInside(object element, DependencyObject ancestor)
-    {
-        for (var current = element as DependencyObject; current is not null; current = VisualTreeHelper.GetParent(current))
-        {
-            if (current == ancestor)
-                return true;
-        }
-        return false;
-    }
-
     private void SettingsFlyout_Closed(object sender, object e) => _settings.Save();
 
     private void ShowStatus(string message)

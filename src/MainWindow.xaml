@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="CaptureView">
 
-    <Grid x:Name="Root" Background="Black" DoubleTapped="Root_DoubleTapped">
+    <Grid x:Name="Root" Background="Black" KeyboardAcceleratorPlacementMode="Hidden">
         <Grid.KeyboardAccelerators>
             <KeyboardAccelerator Key="F11" Invoked="FullscreenAccelerator_Invoked" />
             <KeyboardAccelerator Key="Escape" Invoked="EscapeAccelerator_Invoked" />
