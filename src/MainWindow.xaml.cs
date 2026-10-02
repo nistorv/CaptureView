@@ -21,6 +21,9 @@ public sealed partial class MainWindow : Window
     // Set while the code fills controls, so their change handlers don't react.
     private bool _populating;
 
+    // Whether the cursor is in the top-right corner area that reveals the settings icon.
+    private bool _pointerInSettingsArea;
+
     public MainWindow()
     {
         InitializeComponent();
@@ -230,7 +233,37 @@ public sealed partial class MainWindow : Window
         args.Handled = true;
     }
 
-    private void SettingsFlyout_Closed(object sender, object e) => _settings.Save();
+    private void UpdateSettingsButton() =>
+        SettingsButton.Opacity = _pointerInSettingsArea || SettingsFlyout.IsOpen ? 0.6 : 0;
+
+    private void SettingsArea_PointerEntered(object sender, PointerRoutedEventArgs e)
+    {
+        _pointerInSettingsArea = true;
+        UpdateSettingsButton();
+    }
+
+    private void SettingsArea_PointerExited(object sender, PointerRoutedEventArgs e)
+    {
+        _pointerInSettingsArea = false;
+        UpdateSettingsButton();
+    }
+
+    private void SettingsAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+    {
+        if (SettingsFlyout.IsOpen)
+            SettingsFlyout.Hide();
+        else
+            SettingsFlyout.ShowAt(SettingsButton);
+        args.Handled = true;
+    }
+
+    private void SettingsFlyout_Opened(object sender, object e) => UpdateSettingsButton();
+
+    private void SettingsFlyout_Closed(object sender, object e)
+    {
+        UpdateSettingsButton();
+        _settings.Save();
+    }
 
     private void ShowStatus(string message)
     {

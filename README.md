@@ -34,4 +34,4 @@ dotnet run --project src
 - Possible minor improvements to latency.
     - Switch out from `MediaPlayer` to `MediaFrameReader` and write the frames manually.
 - Create a linux version
-    - Huge maybe, currently community support for the HD60 Pro seems to be on H.264 which introduces some latency.
+    - Huge maybe, currently community support for the HD60 Pro seems to be on H.264 which introduces some latency + project currently relies on a lot of Windows API stuff currently but its not completely undoable.

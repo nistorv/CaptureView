@@ -9,6 +9,7 @@
         <Grid.KeyboardAccelerators>
             <KeyboardAccelerator Key="F11" Invoked="FullscreenAccelerator_Invoked" />
             <KeyboardAccelerator Key="Escape" Invoked="EscapeAccelerator_Invoked" />
+            <KeyboardAccelerator Key="F12" Invoked="SettingsAccelerator_Invoked" />
         </Grid.KeyboardAccelerators>
 
         <MediaPlayerElement
@@ -26,50 +27,71 @@
             TextWrapping="Wrap"
             Visibility="Collapsed" />
 
-        <Button
-            x:Name="SettingsButton"
-            Margin="12"
+        <!--  Top-right corner area: the settings icon only shows while the cursor is inside it.  -->
+        <Grid
+            x:Name="SettingsArea"
+            Width="72"
+            Height="72"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
-            Opacity="0.6"
-            ToolTipService.ToolTip="Settings">
-            <FontIcon Glyph="&#xE713;" />
-            <Button.Flyout>
-                <Flyout Placement="BottomEdgeAlignedRight" Closed="SettingsFlyout_Closed">
-                    <StackPanel Width="320" Spacing="12">
-                        <ComboBox
-                            x:Name="VideoDeviceBox"
-                            HorizontalAlignment="Stretch"
-                            Header="Video device"
-                            SelectionChanged="VideoDeviceBox_SelectionChanged" />
-                        <ComboBox
-                            x:Name="FormatBox"
-                            HorizontalAlignment="Stretch"
-                            Header="Format"
-                            SelectionChanged="FormatBox_SelectionChanged" />
-                        <ComboBox
-                            x:Name="AudioInputBox"
-                            HorizontalAlignment="Stretch"
-                            Header="Audio input"
-                            SelectionChanged="AudioDeviceBox_SelectionChanged" />
-                        <ComboBox
-                            x:Name="AudioOutputBox"
-                            HorizontalAlignment="Stretch"
-                            Header="Audio output"
-                            SelectionChanged="AudioDeviceBox_SelectionChanged" />
-                        <Slider
-                            x:Name="VolumeSlider"
-                            Header="Volume"
-                            Maximum="100"
-                            Minimum="0"
-                            ValueChanged="VolumeSlider_ValueChanged" />
-                        <ToggleSwitch x:Name="MuteSwitch" Header="Mute" Toggled="MuteSwitch_Toggled" />
-                        <ToggleSwitch x:Name="AspectSwitch" Header="Keep aspect ratio" Toggled="AspectSwitch_Toggled" />
-                        <ToggleSwitch x:Name="TopmostSwitch" Header="Always on top" Toggled="TopmostSwitch_Toggled" />
-                        <Button Content="Fullscreen (F11)" Click="FullscreenButton_Click" />
-                    </StackPanel>
-                </Flyout>
-            </Button.Flyout>
-        </Button>
+            Background="Transparent"
+            PointerEntered="SettingsArea_PointerEntered"
+            PointerExited="SettingsArea_PointerExited">
+            <Button
+                x:Name="SettingsButton"
+                Width="40"
+                Height="40"
+                Margin="12"
+                Padding="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Opacity="0"
+                ToolTipService.ToolTip="Settings (F12)">
+                <Button.OpacityTransition>
+                    <ScalarTransition />
+                </Button.OpacityTransition>
+                <FontIcon Glyph="&#xE713;" />
+                <Button.Flyout>
+                    <Flyout
+                        x:Name="SettingsFlyout"
+                        Placement="BottomEdgeAlignedRight"
+                        Opened="SettingsFlyout_Opened"
+                        Closed="SettingsFlyout_Closed">
+                        <StackPanel Width="320" Spacing="12">
+                            <ComboBox
+                                x:Name="VideoDeviceBox"
+                                HorizontalAlignment="Stretch"
+                                Header="Video device"
+                                SelectionChanged="VideoDeviceBox_SelectionChanged" />
+                            <ComboBox
+                                x:Name="FormatBox"
+                                HorizontalAlignment="Stretch"
+                                Header="Format"
+                                SelectionChanged="FormatBox_SelectionChanged" />
+                            <ComboBox
+                                x:Name="AudioInputBox"
+                                HorizontalAlignment="Stretch"
+                                Header="Audio input"
+                                SelectionChanged="AudioDeviceBox_SelectionChanged" />
+                            <ComboBox
+                                x:Name="AudioOutputBox"
+                                HorizontalAlignment="Stretch"
+                                Header="Audio output"
+                                SelectionChanged="AudioDeviceBox_SelectionChanged" />
+                            <Slider
+                                x:Name="VolumeSlider"
+                                Header="Volume"
+                                Maximum="100"
+                                Minimum="0"
+                                ValueChanged="VolumeSlider_ValueChanged" />
+                            <ToggleSwitch x:Name="MuteSwitch" Header="Mute" Toggled="MuteSwitch_Toggled" />
+                            <ToggleSwitch x:Name="AspectSwitch" Header="Keep aspect ratio" Toggled="AspectSwitch_Toggled" />
+                            <ToggleSwitch x:Name="TopmostSwitch" Header="Always on top" Toggled="TopmostSwitch_Toggled" />
+                            <Button Content="Fullscreen (F11)" Click="FullscreenButton_Click" />
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
     </Grid>
 </Window>
